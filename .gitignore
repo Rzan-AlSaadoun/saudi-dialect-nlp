@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+arabert_saudial_baseline_improved/
+qlora_results/
+qlora_adapter_classification/
+mt5_baseline_translation/
