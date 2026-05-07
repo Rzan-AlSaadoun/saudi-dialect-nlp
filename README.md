@@ -1,68 +1,62 @@
-# Saudi Dialect NLP: Classification and Translation with AraBERT and QLoRA
+# Saudi Dialect NLP
 
-A Natural Language Processing project developed as part of CS365 at Imam Mohammad Ibn Saud Islamic University. The project addresses two tasks on the SauDial dataset: classifying Saudi Arabic regional dialects and translating dialect text into Modern Standard Arabic (MSA), comparing full fine-tuning baselines against QLoRA-optimized models.
+This project was made for the NLP course (CS365) at IMSIU. It works on Saudi Arabic dialects using two tasks: classifying which dialect a sentence belongs to, and translating dialect text into Modern Standard Arabic (MSA). We compare a normal fine-tuned model against an optimised one using QLoRA.
 
 ---
 
-## Project Overview
+## What This Project Does
 
-Saudi Arabic encompasses four major regional dialects — Najdi, Hijazi, Eastern, and Southern — each with distinct vocabulary and morphological patterns. This project investigates how pre-trained Arabic language models can be fine-tuned for these tasks and evaluates the impact of parameter-efficient optimization.
+Saudi Arabic has four main regional dialects: Najdi, Hijazi, Eastern, and Southern. We trained models to:
 
-### Task 1: Dialect Classification
-Fine-tuning AraBERT v02 to classify input text into one of four Saudi dialect categories.
+1. **Classify** a sentence into one of the four dialects using AraBERT
+2. **Translate** dialect sentences into MSA using mT5-small
 
-### Task 2: Dialect-to-MSA Translation
-Fine-tuning mT5-small to translate Saudi dialect text into Modern Standard Arabic, comparing full fine-tuning against QLoRA optimization.
+For both tasks, we built a baseline model first, then applied QLoRA to see how much we can improve efficiency and performance.
 
 ---
 
 ## Dataset
 
-**SauDial** — a specialized corpus of Saudi Arabic dialectal dialogue lines paired with MSA equivalents.
+We used the **SauDial dataset**, which contains short Saudi dialect sentences paired with their MSA translations. After cleaning, we had around 800 samples split as follows:
 
-- ~800 samples after preprocessing
-- Balanced across four dialect classes
-- Source: SauDial: The Saudi Arabic Dialects Game Localization Dataset
+- 80% for training
+- 10% for validation
+- 10% for testing
 
-The dataset is not included in this repository. Place the SauDial ZIP file in your Google Drive root before running the notebook.
+The dataset is not included here. Download it and place the ZIP file in your Google Drive root before running the notebook.
 
 ---
 
-## Models
+## How to Run
 
-| Task | Model | Optimization |
-|---|---|---|
-| Classification | aubmindlab/bert-base-arabertv02 | Full fine-tuning (baseline) |
-| Classification | aubmindlab/bert-base-arabertv02 | QLoRA (4-bit, LoRA r=8) |
-| Translation | google/mt5-small | Full fine-tuning (baseline) |
-| Translation | google/mt5-small | QLoRA (4-bit, LoRA r=16) |
+1. Open the notebook in Google Colab
+2. Make sure your runtime is set to GPU (Runtime > Change runtime type > GPU)
+3. Upload the SauDial ZIP to your Google Drive
+4. Run all cells from top to bottom — the notebook installs everything it needs automatically
 
 ---
 
 ## Results
 
-### Classification (AraBERT)
+### Dialect Classification (AraBERT)
+- Accuracy: 0.85
+- F1 Score: 0.90
 
-| Metric | Score |
-|---|---|
-| Accuracy | 0.85 |
-| Macro F1 | 0.90 |
+### Translation (mT5-small)
 
-### Translation Quality Comparison (mT5-small)
-
-| Metric | Baseline (Full Fine-Tuning) | Optimized (QLoRA) |
+| Metric | Baseline | QLoRA |
 |---|---|---|
 | BLEU | 0.0 | 0.775 |
 | ROUGE-1 | 0.0 | 0.814 |
 | ROUGE-2 | 0.0 | 0.758 |
 | ROUGE-L | 0.0 | 0.813 |
 
-### Efficiency Comparison
-
-| Metric | Baseline | QLoRA |
-|---|---|---|
-| Trainable Parameters | 289,840,432 (100%) | 1,707,520 (0.589%) |
+QLoRA also reduced trainable parameters from 289M (100%) down to 1.7M (0.589%).
 
 ---
 
-## Repository Structure
+## Authors
+
+Munera Alzamil, Shatha Alharbi, Rzan AlSaadoun, Fatima Aldukkan
+
+CS365 — Natural Language Processing | Dr. Amal AlSaif | IMSIU
